@@ -2,17 +2,18 @@ package com.polyana.elotech.api.models;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import java.util.Objects;
 
 @Entity
 @Table(name = Pessoa.TABLE_NAME)
@@ -42,10 +43,14 @@ public class Pessoa {
     @NotEmpty(groups = { CreatePessoa.class, UpdatePessoa.class })
     private Long cpf;
 
-    @Column(name = "data_nascimento")
+    @Column(name = "data_nascimento", nullable = false)
+    @NotNull(groups = { CreatePessoa.class, UpdatePessoa.class })
+    @NotEmpty(groups = { CreatePessoa.class, UpdatePessoa.class })
     private Date data_nascimento;
 
-    // private List<Contato> contatos = new ArrayList<Contato>();
+
+    @OneToMany(mappedBy = "pessoa")
+    private List<Contato> contatos = new ArrayList<Contato>();
 
     public Pessoa() {
     }
@@ -87,6 +92,14 @@ public class Pessoa {
 
     public void setData_nascimento(Date data_nascimento) {
         this.data_nascimento = data_nascimento;
+    }
+
+    public List<Contato> getContatos() {
+        return this.contatos;
+    }
+
+    public void setContatos(List<Contato> contatos) {
+        this.contatos = contatos;
     }
 
     @Override
