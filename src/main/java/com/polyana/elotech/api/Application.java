@@ -1,4 +1,4 @@
-package com.polyana.elotech.test;
+package com.polyana.elotech.api;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
