@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.polyana.elotech.api.models.Pessoa;
-import com.polyana.elotech.api.repositories.ContatoRepository;
 import com.polyana.elotech.api.repositories.PessoaRepository;
 
 @Service
@@ -15,9 +14,6 @@ public class PessoaService {
     
     @Autowired
     private PessoaRepository pessoaRepository;
-
-    @Autowired
-    private ContatoRepository contatoRepository;
 
     public Pessoa findById(Long id){
 
@@ -30,12 +26,10 @@ public class PessoaService {
 
     }
 
-    @SuppressWarnings("null")
     @Transactional
     public Pessoa create(Pessoa obj) {
         obj.setId(null);
         obj = this.pessoaRepository.save(obj);
-        this.contatoRepository.saveAll(obj.getContatos());
         return obj;
     }
 
