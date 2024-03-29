@@ -4,6 +4,8 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -41,11 +43,10 @@ public class Pessoa {
     @Column(name = "cpf", nullable = false)
     @NotNull(groups = { CreatePessoa.class, UpdatePessoa.class })
     @NotEmpty(groups = { CreatePessoa.class, UpdatePessoa.class })
-    private Long cpf;
+    private String cpf;
 
     @Column(name = "data_nascimento", nullable = false)
     @NotNull(groups = { CreatePessoa.class, UpdatePessoa.class })
-    @NotEmpty(groups = { CreatePessoa.class, UpdatePessoa.class })
     private Date data_nascimento;
 
 
@@ -55,7 +56,7 @@ public class Pessoa {
     public Pessoa() {
     }
 
-    public Pessoa(Long id, String nome, Long cpf, Date data_nascimento) {
+    public Pessoa(Long id, String nome, String cpf, Date data_nascimento) {
         this.id = id;
         this.nome = nome;
         this.cpf = cpf;
@@ -78,11 +79,11 @@ public class Pessoa {
         this.nome = nome;
     }
 
-    public Long getCpf() {
+    public String getCpf() {
         return this.cpf;
     }
 
-    public void setCpf(Long cpf) {
+    public void setCpf(String cpf) {
         this.cpf = cpf;
     }
 
@@ -94,6 +95,7 @@ public class Pessoa {
         this.data_nascimento = data_nascimento;
     }
 
+    @JsonIgnore
     public List<Contato> getContatos() {
         return this.contatos;
     }
