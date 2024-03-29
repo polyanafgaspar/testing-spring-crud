@@ -16,6 +16,12 @@ import jakarta.validation.constraints.Size;
 @Table(name = Contato.TABLE_NAME)
 public class Contato {
     
+    public interface CreateContato {
+    }
+
+    public interface UpdateContato {
+    }
+    
     public static final String TABLE_NAME = "contato";
 
 
@@ -29,27 +35,27 @@ public class Contato {
     private Pessoa pessoa;
 
     @Column(name = "nome", length = 100, nullable = false)
-    @NotNull
-    @NotEmpty
-    @Size(min = 2, max = 100)
+    @NotNull(groups = { CreateContato.class, UpdateContato.class })
+    @NotEmpty(groups = { CreateContato.class, UpdateContato.class })
+    @Size(groups = { CreateContato.class, UpdateContato.class }, min = 2, max = 100)
     private String nome;
 
     @Column(name = "telefone", nullable = false)
-    @NotNull
-    @NotEmpty
-    private Long telefone;
+    @NotNull(groups = { CreateContato.class, UpdateContato.class })
+    @NotEmpty(groups = { CreateContato.class, UpdateContato.class })
+    private String telefone;
 
     @Column(name = "email", length = 100, nullable = false)
-    @NotNull
-    @NotEmpty
-    @Size(min = 2, max = 100)
+    @NotNull(groups = { CreateContato.class, UpdateContato.class })
+    @NotEmpty(groups = { CreateContato.class, UpdateContato.class })
+    @Size(groups = { CreateContato.class, UpdateContato.class }, min = 2, max = 100)
     private String email;
 
 
     public Contato() {
     }
 
-    public Contato(Long id, Pessoa pessoa, String nome, Long telefone, String email) {
+    public Contato(Long id, Pessoa pessoa, String nome, String telefone, String email) {
         this.id = id;
         this.pessoa = pessoa;
         this.nome = nome;
@@ -81,11 +87,11 @@ public class Contato {
         this.nome = nome;
     }
 
-    public Long getTelefone() {
+    public String getTelefone() {
         return this.telefone;
     }
 
-    public void setTelefone(Long telefone) {
+    public void setTelefone(String telefone) {
         this.telefone = telefone;
     }
 

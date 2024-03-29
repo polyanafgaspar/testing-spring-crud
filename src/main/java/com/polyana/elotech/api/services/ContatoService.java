@@ -1,5 +1,6 @@
 package com.polyana.elotech.api.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,14 +30,22 @@ public class ContatoService {
         ));
     }
 
+    public List<Contato> findAllByPessoaId(Long pessoaId) {
+        List<Contato> contatos = this.contatoRepository.findByPessoa_Id(pessoaId);
+        return contatos;
+    }
+
     @Transactional
     public Contato create(Contato obj) {
+
         Pessoa pessoa = this.pessoaService.findById(obj.getPessoa().getId());
         obj.setId(null);
         obj.setNome(obj.getNome());
         obj.setEmail(obj.getEmail());
         obj.setTelefone(obj.getTelefone());
         obj.setPessoa(pessoa);
+
+        obj = this.contatoRepository.save(obj);
 
         return obj;
     }
