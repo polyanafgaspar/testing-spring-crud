@@ -20,6 +20,7 @@ import com.polyana.elotech.api.models.Contato;
 import com.polyana.elotech.api.models.Contato.CreateContato;
 import com.polyana.elotech.api.models.Contato.UpdateContato;
 import com.polyana.elotech.api.services.ContatoService;
+import com.polyana.elotech.api.services.PessoaService;
 
 import jakarta.validation.Valid;
 
@@ -31,6 +32,9 @@ public class ContatoController {
     @Autowired
     private ContatoService contatoService;
 
+    @Autowired
+    private PessoaService pessoaService;
+
     @GetMapping("/{id}")
     public ResponseEntity<Contato> findById(@PathVariable Long id) {
         Contato obj = this.contatoService.findById(id);
@@ -39,6 +43,7 @@ public class ContatoController {
 
     @GetMapping("/pessoa/{pessoaId}")
     public ResponseEntity<List<Contato>> findAllByPessoaId(@PathVariable Long pessoaId) {
+        this.pessoaService.findById(pessoaId);
         List<Contato> contatos = this.contatoService.findAllByPessoaId(pessoaId);
         return ResponseEntity.ok().body(contatos);
     }
