@@ -1,6 +1,7 @@
 package com.polyana.elotech.api.controllers;
 
 import java.net.URI;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -29,6 +30,12 @@ public class PessoaController {
 
     @Autowired
     private PessoaService pessoaService;
+
+    @GetMapping("")
+    public ResponseEntity<List<Pessoa>> findAll() {
+        List<Pessoa> obj = this.pessoaService.findAll();
+        return ResponseEntity.ok().body(obj);
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity<Pessoa> findById(@PathVariable Long id) {

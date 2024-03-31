@@ -1,6 +1,7 @@
 package com.polyana.elotech.api.services;
 
 import java.util.Optional;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +15,14 @@ public class PessoaService {
     
     @Autowired
     private PessoaRepository pessoaRepository;
+
+    public List<Pessoa> findAll(){
+
+        List<Pessoa> pessoas = this.pessoaRepository.findAll();
+
+        return pessoas;
+
+    }
 
     public Pessoa findById(Long id){
 
