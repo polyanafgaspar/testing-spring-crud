@@ -11,9 +11,19 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = Contato.TABLE_NAME)
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+@EqualsAndHashCode
 public class Contato {
     
     public interface CreateContato {
@@ -50,68 +60,5 @@ public class Contato {
     @NotEmpty(groups = { CreateContato.class, UpdateContato.class })
     @Size(groups = { CreateContato.class, UpdateContato.class }, min = 2, max = 100)
     private String email;
-
-
-    public Contato() {
-    }
-
-    public Contato(Long id, Pessoa pessoa, String nome, String telefone, String email) {
-        this.id = id;
-        this.pessoa = pessoa;
-        this.nome = nome;
-        this.telefone = telefone;
-        this.email = email;
-    }
-
-    public Long getId() {
-        return this.id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Pessoa getPessoa() {
-        return this.pessoa;
-    }
-
-    public void setPessoa(Pessoa pessoa) {
-        this.pessoa = pessoa;
-    }
-
-    public String getNome() {
-        return this.nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getTelefone() {
-        return this.telefone;
-    }
-
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
-    }
-
-    public String getEmail() {
-        return this.email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    @Override
-    public String toString() {
-        return "{" +
-            " id='" + getId() + "'" +
-            ", pessoa='" + getPessoa() + "'" +
-            ", nome='" + getNome() + "'" +
-            ", telefone='" + getTelefone() + "'" +
-            ", email='" + getEmail() + "'" +
-            "}";
-    }
 
 }

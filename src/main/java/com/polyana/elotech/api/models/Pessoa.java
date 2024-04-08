@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -16,9 +18,19 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = Pessoa.TABLE_NAME)
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+@EqualsAndHashCode
 public class Pessoa {
 
     public interface CreatePessoa {
@@ -51,67 +63,7 @@ public class Pessoa {
 
 
     @OneToMany(mappedBy = "pessoa")
+    @JsonProperty(access = Access.WRITE_ONLY)
     private List<Contato> contatos = new ArrayList<Contato>();
-
-    public Pessoa() {
-    }
-
-    public Pessoa(Long id, String nome, String cpf, Date data_nascimento) {
-        this.id = id;
-        this.nome = nome;
-        this.cpf = cpf;
-        this.data_nascimento = data_nascimento;
-    }
-
-    public Long getId() {
-        return this.id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getNome() {
-        return this.nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getCpf() {
-        return this.cpf;
-    }
-
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
-    }
-
-    public Date getData_nascimento() {
-        return this.data_nascimento;
-    }
-
-    public void setData_nascimento(Date data_nascimento) {
-        this.data_nascimento = data_nascimento;
-    }
-
-    @JsonIgnore
-    public List<Contato> getContatos() {
-        return this.contatos;
-    }
-
-    public void setContatos(List<Contato> contatos) {
-        this.contatos = contatos;
-    }
-
-    @Override
-    public String toString() {
-        return "{" +
-                " id='" + getId() + "'" +
-                ", nome='" + getNome() + "'" +
-                ", cpf='" + getCpf() + "'" +
-                ", data_nascimento='" + getData_nascimento() + "'" +
-                "}";
-    }
 
 }
